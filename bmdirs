@@ -1,0 +1,21 @@
+# You can add comments to these files with #
+h	~/
+d	~/Documents
+D	~/Downloads
+m	~/Music
+cf	~/.config
+scr	~/.local/bin
+mn	/mnt
+wp	~/Documents/Pictures/wallpapers
+py	~/.local/share/python
+
+#School related:
+#ma	~/skola/MA3
+#ch	~/skola/CHI
+#phy	~/skola/PHY
+#ge	~/skola/GE2
+#hi	~/skola/HI2
+#ict	~/skola/ICT
+#phi	~/skola/PH2
+#l1	~/skola/L1
+#l2	~/skola/L2
