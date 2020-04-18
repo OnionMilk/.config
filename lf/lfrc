@@ -1,0 +1,124 @@
+# Luke's lf settings Basic vars
+set shell bash
+#set previewer ~/.config/lf/scope
+set shellopts '-eu'
+set ifs "\n"
+set hidden
+set scrolloff 10
+set color256
+set previewer ~/go/bin/pistol
+map <c-m>
+
+# cmds/functions
+cmd open ${{
+    case $f in
+	*.xopp*) setsid xournalpp $f & ;;
+	*.docx) setsid libreoffice $f & ;;
+	*.pptx) setsid libreoffice $f & ;;
+	*.html) setsid vim $f & ;;
+    esac
+
+    case $(file --mime-type $f -b) in
+    	text/troff) vim ./ $f;;
+        text/*) $EDITOR $fx;;
+	image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
+#	image/*) rotdir $f | setsid sxiv -ai >/dev/null 2>&1 & ;;
+	image/*) setsid sxiv -a $f >/dev/null 2>&1 & ;;
+	audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
+	video/*) setsid mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f -quiet >/dev/null 2>&1 & ;;
+	application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
+        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+    esac
+}}
+
+cmd open-with ${{
+    $1 $f
+}}
+
+cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+
+cmd rename2 %{{
+	[ -e "$1" ] && printf "file exists"
+	file=$(sed 's/\s/\_/' "$f")
+	mv $file $1
+}}
+
+
+cmd delete ${{
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "delete?[y/n]"
+	read ans
+	[ $ans = "y" ] && rm -rf $fx
+}}
+
+cmd moveto ${{
+	set -f
+	clear; echo "Move to where?"
+	dest="$(cut -d'	' -f2- ~/.config/directories | fzf)" &&
+	eval mv -iv $fx $dest &&
+	notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+}}
+
+cmd copyto ${{
+	set -f
+	clear; echo "Copy to where?"
+	dest="$(cut -d'	' -f2- ~/.config/directories | fzf)" &&
+	eval cp -ivr $fx $dest &&
+	notify-send "📋 File(s) copied." "File(s) copies to $dest."
+}}
+
+# Testing
+cmd shellwindow ${{
+	shell
+	bash
+}}
+
+# Testing
+cmd openshell ${{
+	echo $f
+	echo $fx
+}}
+
+cmd setbackground ${{
+	setbg $f
+}}
+
+cmd make !{{
+	make && sudo make install
+}}
+
+# School commands
+cmd l1 ${{
+
+
+}}
+
+# Bindings
+#map c $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
+map J $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
+map gh
+map g top
+map D delete
+map C copyto
+map M moveto
+map <a-m> make
+map a push %mkdir<space>
+map r push :rename<space>
+map <enter> shell
+map <shift><enter> shell-pipe
+map R reload
+map x $$f
+map X !$f
+map bg setbackground
+map c !chmod +x $f && echo "permission changed"
+map E !extract -c $f
+
+# What is this?
+#map o &mimeopen $f
+#map O $mimeopen --ask $f
+
+# Converting to pdf
+map T $convert-file $f
+
+map S shellwindow

@@ -1,0 +1,82 @@
+#!/bin/sh
+
+#General Aliases
+alias ka="killall" \
+	tetris="yetris" \
+	pacgame="pacman4console" \
+	sudo="sudo " \
+	mkd="mkdir -pv" \
+	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
+	calcurse="calcurse -D ~/.config/calcurse" \
+	magit="nvim -c MagitOnly" \
+	p="sudo pacman" \
+	SS="sudo systemctl" \
+	f="$FILE" \
+	g="git" \
+	trem="transmission-remote" \
+	r="ranger" \
+	wall="lf ~/Documents/data" \
+	v="$EDITOR" \
+	vim="nvim" \
+	x="sxiv -ft *" \
+	sdn="sudo shutdown -h now" \
+	gua="git remote | xargs -L1 git push --all" \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
+	yta="yt -x -f bestaudio/best" \
+	YT="youtube-viewer" \
+	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
+	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
+	lsp="pacman -Qett --color=always | less" \
+	ffmpeg="ffmpeg -hide_banner" \
+	neo="neofetch" \
+	info="info --vi-keys" \
+	unpack="tar -xzvf" \
+	b="bluetoothctl" \
+	watt="wattage"
+
+#Networking Aliases
+alias wifi="sudo wifi-menu" \
+	myip="curl ipinfo.io/ip" \
+	cp_to_msi="scp $1 simon@$msi:$2" \
+	mount-msi="sshfs simon@$msi:/ ~/dock/msi -o ServerAliveInterval=15" \
+	umount-msi="fusermount3 -u ~/dock/msi" \
+	pi="ssh ubuntu@$pi" \
+	cp_to_pi="scp $1 pi@$pi:$2" \
+	mount-pi="sshfs pi@$pi:/ /mnt/network/pi" \
+	umount-pi="fusermount3 -u /mnt/network/pi" \
+	asus="ssh family@$asus" \
+	ideapad="ssh family@$ideapad " \
+	server="ssh adminuser@s7swa.org" \
+	servermount="sshfs adminuser@s7swa.org:/ ~/network/server/ " \
+	serverumount="fusermount3 -u ~/network/server"
+
+#School Aliases
+alias skola="cd ~/skola" \
+	ma=". ma" \
+	chi=". chi" \
+	phy=". phy" \
+	ph=". ph" \
+	l1=". l1" \
+	l2=". l2" \
+	hi=". hi" \
+	ge=". ge" \
+	ict=". ict" \
+
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
+
+vf() { fzf | xargs -r -I % $EDITOR % ;}
+
+#script to retrieve other scripts and pipe them into an editor
+sc() { du -a ~/.local/bin | awk '{print $2}' | fzf | xargs -r -I % $EDITOR % ; }
+
+#get any config file on the system
+cfg() { du -a /etc ~/.config 2>/dev/null | awk '{print $2}' | fzf | xargs -r -I % $EDITOR % ; }
+
+pingtest() { ping -a -c 3 archlinux.org ;}
+
+#use this if you want to pretend to be a browser
+download_as_browser() { wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.3) Gecko/2008092416 Firefox/3.0.3" $1 ;}
