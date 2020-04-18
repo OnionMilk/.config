@@ -1,4 +1,5 @@
 # My BSPWM Configuration
+test
 
 ![Screenshot of my desktop](https://www.gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles08.png)
 
