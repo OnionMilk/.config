@@ -36,7 +36,8 @@ alias ka="killall" \
 	info="info --vi-keys" \
 	unpack="tar -xzvf" \
 	b="bluetoothctl" \
-	watt="wattage"
+	watt="wattage" \
+	rm="safe-rm"
 
 #Networking Aliases
 alias wifi="sudo wifi-menu" \

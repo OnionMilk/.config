@@ -9,7 +9,7 @@ cfbs	~/.config/bspwm/bspwmrc
 cfpb	~/.config/polybar/config
 cfm	~/.config/mutt/muttrc
 cfxd	~/.Xdefaults
-cfxr	~/.Xresources
+cfxr	~/.config/Xresources
 cfy	~/.config/newsboat/youtube/urls
 cfu	~/.config/newsboat/urls
 cfn	~/.config/newsboat/config
