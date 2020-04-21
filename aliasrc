@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #General Aliases
-alias ka="killall" \
+alias	ka="killall" \
 	tetris="yetris" \
 	pacgame="pacman4console" \
 	sudo="sudo " \
@@ -12,7 +12,6 @@ alias ka="killall" \
 	p="sudo pacman" \
 	SS="sudo systemctl" \
 	f="$FILE" \
-	g="git" \
 	trem="transmission-remote" \
 	r="ranger" \
 	wall="lf ~/Documents/data" \
@@ -40,7 +39,7 @@ alias ka="killall" \
 	rm="safe-rm"
 
 #Networking Aliases
-alias wifi="sudo wifi-menu" \
+alias	wifi="sudo wifi-menu" \
 	myip="curl ipinfo.io/ip" \
 	cp_to_msi="scp $1 simon@$msi:$2" \
 	mount-msi="sshfs simon@$msi:/ ~/dock/msi -o ServerAliveInterval=15" \
@@ -56,7 +55,7 @@ alias wifi="sudo wifi-menu" \
 	serverumount="fusermount3 -u ~/network/server"
 
 #School Aliases
-alias skola="cd ~/skola" \
+alias	skola="cd ~/skola" \
 	ma=". ma" \
 	chi=". chi" \
 	phy=". phy" \
@@ -67,12 +66,23 @@ alias skola="cd ~/skola" \
 	ge=". ge" \
 	ict=". ict" \
 
+
+#Git Aliases
+alias	g="git" \
+	gs="git status" \
+	gc="git commit" \
+	ga="git add" \
+	gps="git push" \
+	gpl="git pull" \
+	gl="git log"
+
+
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
 vf() { fzf | xargs -r -I % $EDITOR % ;}
 
 #script to retrieve other scripts and pipe them into an editor
-sc() { du -a ~/.local/bin | awk '{print $2}' | fzf | xargs -r -I % $EDITOR % ; }
+sc() { du -a ~/.local/bin | awk '{print $2}' | grep -v "\.*git\.*" | fzf | xargs -r -I % $EDITOR % ; }
 
 #get any config file on the system
 cfg() { du -a /etc ~/.config 2>/dev/null | awk '{print $2}' | fzf | xargs -r -I % $EDITOR % ; }
