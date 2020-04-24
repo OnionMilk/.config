@@ -1,9 +1,9 @@
-#  ____ _____ 
+#  ____ _____
 # |  _ \_   _|  Derek Taylor (DistroTube)
 # | | | || |  	http://www.youtube.com/c/DistroTube
-# | |_| || |  	http://www.gitlab.com/dwt1/ 
-# |____/ |_|  	
-#        
+# | |_| || |  	http://www.gitlab.com/dwt1/
+# |____/ |_|
+#
 # A customized sxhkdrc for the bspwm window manager.
 # https://github.com/baskerville/sxhkd
 # https://github.com/baskerville/bspwm
@@ -12,23 +12,22 @@
 # WM INDEPENDENT KEYBINDINGS
 
 # make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
-
+super + F2
+	pkill -SIGUSR1 -x sxhkd
 
 # BSPWM HOTKEYS
 
-# quit/restart bspwm
-super + shift + {q,r}
-	bspc {quit,wm -r}
+# kill windows
+super + shift + q
+	bspc -kill
 
-# close and kill
-super + shift + c
+# close windows
+super + q
 	bspc node -c
 
 # alternate between the tiled and monocle layout
-super + m
-	bspc desktop -l next
+#super + m
+#bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
 super + y
@@ -61,27 +60,36 @@ super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }n
-	bspc node -f {next,prev}.local
+# super + {_,shift + }n
+# 	bspc node -f {next,prev}.local
 
 # focus the next/previous desktop in the current monitor
-super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+# super + bracket{left,right}
+# 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+# super + {grave,Tab}
+# 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+# super + {o,i}
+# 	bspc wm -h off; \
+# 	bspc node {older,newer} -f; \
+# 	bspc wm -h on
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} focused:'^{1-9,10}'
 
+# focus or send to monitor left or right
+super + {minus,equal}
+    bspc monitor -f {west,east}
+
+super + shift + {minus,equal}
+    bspc node -m {west,east}
+
+super + alt + {minus,equal}
+    bspc node -m {west,east} -f
 
 # PRESELECT
 
@@ -116,73 +124,113 @@ ctrl + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+Home
+    wm-restart
+
+super + shift + d
+    bspc config window_gap 0
+
+super + F6
+    headphones
 
 # APPLICATION KEYBINDINGS (Super + Alt + Key)
 
 # terminal emulator
 super + Return
-	st
+    st
+
+super + space
+    kill -s SIGUSR1  $(pidof deadd-notification-center)
+
+
 # launch ncpamixer
 super + alt + a
     st -e ncpamixer
-# launch surf browser
-super + alt + b
-    surf www.youtube.com/c/DistroTube
+
+super + shift + a
+    st -e pulsemixer
+
+# Launching Firefox
+super + w
+    firefox
+
 # launch cmus
 super + alt + c
     st -e cmus
+
 # launch lynx web browser
 super + alt + l
     st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys gopher://distro.tube
+
 # launch irssi chat client
 super + alt + i
     st -e irssi
+
 # launch joplin
 super + alt + j
     st -e joplin
+
 # launch toot cli
 super + alt + m
     st -e toot curses
-# launch newsboat feed reeder
-super + alt + n
-    st -e newsboat
+
+# launch newsboat feed reader in youtube mode
+super + n
+    st -e newsboat -r -u ~/.config/newsboat/youtube/urls -c ~/.local/share/newsboat/youtube/cache.db
+
+super + shift + n
+    st -e newsboat -r
+
 # launch pianobar
 super + alt + p
     st -e pianobar
+
 # launch rtv
 super + alt + r
     st -e rtv
+
 # launch vifm file manager
 super + alt + v
     st -e ./.config/vifm/scripts/vifmrun
+
 # launch wopr
 super + alt + w
     st -e wopr report.xml
+
 # launch youtube viewer
 super + alt + y
     st -e youtube-viewer
-    
-    
+
+super + grave
+    dmenuunicode
+
+super + shift + grave
+    dmenuemoji
+
+super + i
+    st -e htop
+
+
 # DMENU SCRIPTS (Alt+Ctrl+Key)
 
 # run program launcher
-alt + ctrl + Return
+super + d
 	dmenu_run
-# edit common config files
-alt + ctrl + e
-   /home/dt/.dmenu/dmenu-edit-configs.sh
-# surfraw
-alt + ctrl + s
-   /home/dt/.dmenu/dmenu-surfraw.sh 
-# common system montoring programs
-alt + ctrl + m
-   /home/dt/.dmenu/dmenu-sysmon.sh 
-# passmenu
-alt + ctrl + p
-   exec passmenu 
-# reddio Reddit viewer
-alt + ctrl + r
-   /home/dt/.dmenu/dmenu-reddio.sh 
-# stock trading programs
-alt + ctrl + t
-   /home/dt/.dmenu/dmenu-trading.sh 
+# # edit common config files
+# alt + ctrl + e
+#    /home/dt/.dmenu/dmenu-edit-configs.sh
+# # surfraw
+# alt + ctrl + s
+#    /home/dt/.dmenu/dmenu-surfraw.sh
+# # common system montoring programs
+# alt + ctrl + m
+#    /home/dt/.dmenu/dmenu-sysmon.sh
+# # passmenu
+# alt + ctrl + p
+#    exec passmenu
+# # reddio Reddit viewer
+# alt + ctrl + r
+#    /home/dt/.dmenu/dmenu-reddio.sh
+# # stock trading programs
+# alt + ctrl + t
+#    /home/dt/.dmenu/dmenu-trading.sh

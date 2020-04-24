@@ -31,6 +31,7 @@ foreground = ${xrdb:color257:#ebdbb2}
 
 ; inclusions of bar files
 include-file = /home/simon/.config/polybar/mainbar.ini
+include-file = /home/simon/.config/polybar/sidebar.ini
 
 
 [module/mutt-wizard]
@@ -224,7 +225,7 @@ format-connected-underline = ${colors.darkgreen}
 ;format-connected-underline = ${colors.green}
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.gray}
-label-connected = %local_ip%
+label-connected = %upspeed% ⬆  %downspeed% ⬇
 
 ;format-disconnected =
 format-disconnected = <label-disconnected>
@@ -236,8 +237,8 @@ label-disconnected-foreground = ${colors.gray}
 type = internal/date
 interval = 60
 
-date = "%Y %b %d (%a)"
-time = "%I:%M%p"
+date = "%d %b %Y (%a)"
+time = "%H:%M"
 
 # If you're not living in a country where AM and PM is used you can add -alt to the time above this line and comment it using ;, then you can remove the -alt to the time under this line and uncomment it.
 ;time-alt = " at %H:%M"

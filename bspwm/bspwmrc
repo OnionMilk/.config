@@ -61,4 +61,3 @@ bspc config urgent_border_color		"#dd2727"
 
 # Confirmation
 #echo "works" > "$ERROR"/bspwmtest
-

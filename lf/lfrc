@@ -112,7 +112,7 @@ map x $$f
 map X !$f
 map bg setbackground
 map c !chmod +x $f && echo "permission changed"
-map E !extract -c $f
+map E !extract -c "$f"
 
 # What is this?
 #map o &mimeopen $f

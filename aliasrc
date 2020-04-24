@@ -85,7 +85,7 @@ vf() { fzf | xargs -r -I % $EDITOR % ;}
 sc() { du -a ~/.local/bin | awk '{print $2}' | grep -v "\.*git\.*" | fzf | xargs -r -I % $EDITOR % ; }
 
 #get any config file on the system
-cfg() { du -a /etc ~/.config 2>/dev/null | awk '{print $2}' | fzf | xargs -r -I % $EDITOR % ; }
+cfg() { du -a /etc ~/.config 2>/dev/null | awk '{print $2}' | grep -v "\.*git\.*" | fzf | xargs -r -I % $EDITOR % ; }
 
 pingtest() { ping -a -c 3 archlinux.org ;}
 
